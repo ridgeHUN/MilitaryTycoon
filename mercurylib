@@ -455,7 +455,22 @@ function Library:create(options)
 
 	self.CurrentTheme = options.Theme
 
+local Objects = {}
 
+function Objects.new(Type)
+	local TargetType = FindType(Type)
+	if TargetType then
+		local NewImage = Instance.new(ActualTypes[TargetType])
+		if Properties[TargetType] then
+			for Property, Value in next, Properties[TargetType] do
+				NewImage[Property] = Value
+			end
+		end
+		return NewImage
+	else
+		return Instance.new(Type)
+	end
+end
 
     local function GetExploit()
         local Table = {};
